@@ -126,7 +126,9 @@ fig = px.line(filtered_data,
               color='job_title', 
               title="Évolution des salaires des 10 postes les plus courants", 
               labels={'salary_in_usd': 'Salaire moyen en USD', 'work_year': 'Année de travail'})
+
 fig.update_layout(xaxis=dict(type='category'))
+
 st.plotly_chart(fig)
 
 ### 7. Salaire médian par expérience et taille d'entreprise
@@ -208,4 +210,3 @@ with colo2:
     st.plotly_chart(fig2)
 
 
-st.write(df)
