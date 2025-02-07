@@ -1,6 +1,6 @@
-pandas as pd
-numpy as np
-matplotlib.pyplot as plt
-seaborn as sns
-streamlit as st
-plotly.express as px
+pandas
+numpy
+matplotlib.pyplot
+seaborn
+streamlit
+plotly.express
