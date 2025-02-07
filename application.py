@@ -18,7 +18,7 @@ import streamlit as st
 import plotly.express as px
 
 # Chargement des données
-df = pd.read_csv('H:/Mes documents/SAE601/ds_salaries.csv')
+df = pd.read_csv('ds_salaries.csv')
 
 st.set_page_config(layout= ("wide"))
 
@@ -40,9 +40,6 @@ df_filtered10 = df[
     (df['experience_level'].isin(selected_experience)) &
     (df['company_size'].isin(selected_company_size))
 ]
-
-
-
 
 
 
@@ -74,10 +71,11 @@ with col1:
 with col2:
     st.write(px.bar(df_fr, x='experience_level', y='salary_in_usd', color='company_size'))
 
-
+st.write("Il est possible de voir que  l'expérience du slarié augmente son salaire. Mais on voit aussi que les entreprises qui payent le plus ne sont pas les plus grandes entreprises")
 
 ### 4. Analyse des tendances de salaires :
 #### Salaire moyen par catégorie : en choisisant une des : ['experience_level', 'employment_type', 'job_title', 'company_location'], utilisant px.bar et st.selectbox 
+st.subheader("📌 Statistiques générales")
 option = st.selectbox('Categorie',('experience_level', 'employment_type', 'job_title', 'company_location'))
 
 salaire_moy = df_filtered10.groupby(option)["salary_in_usd"].mean()
@@ -85,9 +83,11 @@ salaire_moy = df_filtered10.groupby(option)["salary_in_usd"].mean()
 fig = px.bar(salaire_moy)
 st.write(fig)
 
+st.write("On voit ici la moyenne des salaires en fonction de chaque niveau d'expérience")
+
+
 ### 5. Corrélation entre variables
 # Sélectionner uniquement les colonnes numériques pour la corrélation
- 
 numeric_df = df_filtered10.select_dtypes(include=[np.number]) 
 correlation_matrix = numeric_df.corr()
 
@@ -110,15 +110,15 @@ with colo2:
 # calcule du salaire moyen par an
 #utilisez px.line
 #votre code 
-
+st.subheader("Évolution des salaires pour les 10 postes les plus courants")
 
 salary_avg_per_job = df_filtered10.groupby(['work_year', 'job_title'])['salary_in_usd'].mean().reset_index()
 
-# Sélectionner les 10 postes les plus courants
+# top 10 jobs
 top_10_jobs = df_filtered10['job_title'].value_counts().head(10).index
 filtered_data = salary_avg_per_job[salary_avg_per_job['job_title'].isin(top_10_jobs)]
 
-# Créer un graphique interactif avec Plotly
+
 fig = px.line(filtered_data, 
               x='work_year', 
               y='salary_in_usd', 
@@ -131,7 +131,7 @@ st.plotly_chart(fig)
 ### 7. Salaire médian par expérience et taille d'entreprise
 # utilisez median(), px.bar
 #votre code 
-
+st.subheader("Salaire médian par expérience et taille d'entreprise")
 salary_med_per_xp = df.groupby(['experience_level', 'company_size'])['salary_in_usd'].median().reset_index()
 
 # Créer le graphique à barres
@@ -145,7 +145,7 @@ st.plotly_chart(fig)
 ### 8. Ajout de filtres dynamiques
 #Filtrer les données par salaire utilisant st.slider pour selectionner les plages 
 #votre code 
-
+st.subheader("Repartition salaire avec slider")
 colo1, colo2 ,colo3= st.columns(3)
 
 with colo1:
@@ -170,13 +170,13 @@ with colo2 :
 
 
 ### 9.  Impact du télétravail sur le salaire selon le pays
-
+st.subheader("Impact du télétravail sur le salaire selon le pays")
 
 
 pays = df_filtered10['employee_residence'].unique()
 
 # pour choisir un pays
-st.title("Impact du télétravail sur le salaire selon le pays")
+
 selected_country = st.selectbox("Sélectionnez un pays", pays)
 
 # Filtrer les données pour le pays sélectionné
