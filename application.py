@@ -1,6 +1,6 @@
 """
 📝 **Instructions** :
-- Installez toutes les bibliothèques nécessaires en fonction des imports présents dans le code, utilisez la commande suivante :conda create -n projet python pandas numpy streamlit ..........
+- Installez toutes les bibliothèques nécessaires en fonction des imports présents dans le code, utilisez la commande suivante :conda create -n projet python pandas numpy streamlit plotly seaborn ..........
 - cd /d "H:/Mes documents/SAE601" 
 - Complétez les sections en écrivant votre code où c’est indiqué.
 - Ajoutez des commentaires clairs pour expliquer vos choix.
@@ -20,11 +20,12 @@ import plotly.express as px
 # Chargement des données
 df = pd.read_csv('ds_salaries.csv')
 
+
 st.set_page_config(layout= ("wide"))
 
 ### 10. Filtrage avancé des données avec deux st.multiselect, un qui indique "Sélectionnez le niveau d'expérience" et l'autre "Sélectionnez la taille d'entreprise"
 #votre code 
-st.title("📊 Visualisation des Salaires en Data Science")
+st.title("📊 Visualisation des Salaires en Data Science")   
 st.markdown("Explorez les tendances des salaires à travers différentes visualisations interactives.")
 st.subheader(" Filtres Globaux")
 
@@ -125,7 +126,7 @@ fig = px.line(filtered_data,
               color='job_title', 
               title="Évolution des salaires des 10 postes les plus courants", 
               labels={'salary_in_usd': 'Salaire moyen en USD', 'work_year': 'Année de travail'})
-
+fig.update_layout(xaxis=dict(type='category'))
 st.plotly_chart(fig)
 
 ### 7. Salaire médian par expérience et taille d'entreprise
@@ -207,3 +208,4 @@ with colo2:
     st.plotly_chart(fig2)
 
 
+st.write(df)
