@@ -72,19 +72,19 @@ with col1:
 with col2:
     st.write(px.bar(df_fr, x='experience_level', y='salary_in_usd', color='company_size'))
 
-st.write("Il est possible de voir que  l'expérience du slarié augmente son salaire. Mais on voit aussi que les entreprises qui payent le plus ne sont pas les plus grandes entreprises")
+st.write("Il est possible de voir que  l'expérience du slarié augmente son salaire. Mais on voit aussi que les entreprises qui payent le plus ne sont pas les plus grandes entreprises. Il est aussi possible de voir que la dispertion des salaires est beaucoup élevée pour les employés SE que les employés MI")
 
 ### 4. Analyse des tendances de salaires :
 #### Salaire moyen par catégorie : en choisisant une des : ['experience_level', 'employment_type', 'job_title', 'company_location'], utilisant px.bar et st.selectbox 
 st.subheader("📌 Statistiques générales")
-option = st.selectbox('Categorie',('experience_level', 'employment_type', 'job_title', 'company_location'))
+option = st.selectbox('Categorie',('company_location','experience_level', 'employment_type', 'job_title' ))
 
 salaire_moy = df_filtered10.groupby(option)["salary_in_usd"].mean()
 
 fig = px.bar(salaire_moy)
 st.write(fig)
 
-st.write("On voit ici la moyenne des salaires en fonction de chaque niveau d'expérience")
+st.write("On voit ici la moyenne des salaires en fonction du filtre choisi. Par exemple si l'on regarde le salaire moyen pra pays on voir rapidement que le pays ou le salaire moyen est le plus élevé est en Israel avec un salaire moyen à 271 000 dollars par mois. En deuxième posistion on trouve les États Unis avec un salaire moyen a 151 000 dollars ce qui fait une différence de 100 000 dollars. ")
 
 
 ### 5. Corrélation entre variables
@@ -104,6 +104,7 @@ colo1, colo2 ,colo3= st.columns(3)
 with colo2:
     st.pyplot( sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm').get_figure() ) # Créer une carte de chaleur pour visualiser la matrice de corrélation
 
+st.write("Sur cette heatmap on se rends compte que toutes les variables sont faibles ce qui signifie qu'il n'y aucune variable qui permet d'expliquer totalement une autre variable \n \n*Note : Pour la heatmap on ne considère que les variables numériques et c'est pour cela que l'on ne trouve pas de variable qui en explique une autre*")
 
 ### 6. Analyse interactive des variations de salaire
 # Une évolution des salaires pour les 10 postes les plus courants
@@ -131,6 +132,7 @@ fig.update_layout(xaxis=dict(type='category'))
 
 st.plotly_chart(fig)
 
+st.write ("On peut voir ici l'évolution des salaires pour les 10 jobs les plus courants et on remarque que les salaires ont globalement diminués entre 2020 et 2021 et qu'après cela ils ont commencés a ré-augmenter mais de manière très lente. On peut aussi noter que le metier de reserch scientist qui était ,de loin, le mieux payé en 2020 n'arrive plus que troisième en 2023  ")
 ### 7. Salaire médian par expérience et taille d'entreprise
 # utilisez median(), px.bar
 #votre code 
